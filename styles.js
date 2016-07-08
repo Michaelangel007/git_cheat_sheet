@@ -269,16 +269,12 @@ $(function () {
 // */
   };
 
-var y = 0;
-
   $.each(['stash', 'workspace', 'index', 'local_repo', 'remote_repo'], function (index, value) {
 console.log( "Column: " + value );
     var c = colors[value].darken(0).saturate(-10); // direction != status -> label background color
     var width = $('#' + value).innerWidth();
     
     $('#' + value).css('width', width - 2);
-$('#' + value).css('top', y );
-//y += 50;
 
     css['#' + value] = {
       border: '1px dotted transparent',// + colors[value],
