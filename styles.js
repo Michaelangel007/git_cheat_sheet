@@ -1,17 +1,17 @@
 $(function () {
 
   var colors = {
-    stash:      '#FF0000'.darken(20), //'#bf3030',
-    workspace:  '#FFFF00'.darken(20), //'#ff4040'.saturate(-15),
-    index:      '#00FF00'.darken(20), //'#ff9640',
-    local_repo: '#00FFFF'.darken(20), //'#cd0074',
-    remote_repo:'#0000FF'.darken(20)  //'#bf3030'
+    stash:      '#FF0000'.darken(20), // CLEANUP: '#bf3030',
+    workspace:  '#FFFF00'.darken(20), // CLEANUP: '#ff4040'.saturate(-15),
+    index:      '#00FF00'.darken(20), // CLEANUP: '#ff9640',
+    local_repo: '#00FFFF'.darken(20), // CLEANUP: '#cd0074',
+    remote_repo:'#0000FF'.darken(20)  // CLEANUP: '#bf3030'
   }
 
 
   var upColor     = colors.workspace.darken(10).saturate(-30);
   var dnColor     = colors.workspace.darken(0).saturate(-30);
-  var statusColor = '#888888'; // '#846C6C';
+  var statusColor = '#888888'; // CLEANUP: '#846C6C';
 
   monospaced = '"Source Code Pro", monospaced'
   bodyFont = 'Merriweather, sanserif' // 300, 400, 700, 900
@@ -20,7 +20,7 @@ $(function () {
     'html,body': {
       margin: 0,
       padding: 0,
-      background: '#ffffff' // 'url(vCanvas.jpg)'
+      background: '#ffffff' // CLEANUP: 'url(vCanvas.jpg)' // remove fugly background picture
     },
     'a,a:link,a:visited': {
       color: colors.local_repo,
@@ -108,7 +108,7 @@ $(function () {
     '#diagram': {
       marginTop: 20,
       position: 'relative',
-      height: '10.5in', // '6.3in', // make columns very tall
+      height: '10.5in', // CLEANUP: '6.3in' -> '10.5in', // make columns very tall
       marginBottom: '2cm',
       padding: '1px 0'
     },
@@ -121,16 +121,15 @@ $(function () {
       '.bar': {
         position: 'absolute',
         left: '45%',
-        top: 50, // CLEANUP: 50 -> 85 was running into 'y' from "upstream repository"
+        top: 50,
 //border: '1px dashed white', // CLEANUP: commented out to make center bar invisible
         'border-top': 'none',
         width: 10,
-        height: 535 // CLEANUP: 535 -> 505
+        height: 535
       },
-
       'h5': {
         position: 'absolute',
-        top: 0, // 0
+        top: 0,
         margin: 0,
         width: '100%',
         'text-align': 'center',
@@ -162,11 +161,11 @@ $(function () {
     },
     '#commands': {
       position: 'absolute',
-      top: 95, // 85 // provide more vertical spacing between "upstream repository" and "< clone <repo>"
+      top: 95, // CLEANUP: 85 -> 95 provide more vertical spacing between "upstream repository" and "< clone <repo>"
       left: 0,
       width: '100%',
       font: '200 15px ' + monospaced,
-      height: 0, // 0
+      height: 0,
       margin: 0,
       padding: 0,
       '> dd': {
@@ -270,21 +269,16 @@ $(function () {
   };
 
   $.each(['stash', 'workspace', 'index', 'local_repo', 'remote_repo'], function (index, value) {
-console.log( "Column: " + value );
-    var c = colors[value].darken(0).saturate(-10); // direction != status -> label background color
+    var c = colors[value].darken(0).saturate(-10); // NOTE: if (direction != status ) then label background color = darken
     var width = $('#' + value).innerWidth();
-    
     $('#' + value).css('width', width - 2);
 
     css['#' + value] = {
       border: '1px dotted transparent',// + colors[value],
       color: colors[value],
       backgroundColor: colors[value].saturate(-50).lighten(50) // CLEANUP: lighten(20) -> 50
-//      backgroundColor: colors[value].saturate(-50).lighten(20)
     };
-
     css['#' + value + ' .bar'] = { borderColor: colors[value].darken(20)};
-
     css['body.' + value + ' #' + value] = {
       color: 'white',
       backgroundColor: colors[value].lighten(0)
