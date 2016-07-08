@@ -33,7 +33,7 @@ var commands = [
   {"left": "workspace"  , "right": "remote_repo", "direction": "dn"    , "key": "clone x"           , "tags": "Creating Projects"    },
   {"left": "workspace"  , "right": "remote_repo", "direction": "dn"    , "key": "pull x x"          , "tags": "Sharing and Updating" },
   {"left": "workspace"  , "right": "remote_repo", "direction": "dn"    , "key": "reset --hard x/x"  , "tags": "Basic Snapshotting"   },
-  {"left": "workspace"  , "right": "workspace"  , "direction": "dn"    , "key": "clean"             , "tags": "Administration"       },
+  {"left": "workspace"  , "right": "index"      , "direction": "dn"    , "key": "clean"             , "tags": "Administration"       }, // BUGFIX: Workspace <- Index
   {"left": "index"      , "right": "index"      , "direction": "status", "key": "reset head x"      , "tags": "Basic Snapshotting"   },
   {"left": "index"      , "right": "local_repo" , "direction": "dn"    , "key": "reset --soft head^", "tags": "Basic Snapshotting"   },
   {"left": "index"      , "right": "local_repo" , "direction": "status", "key": "diff --cached"     , "tags": "Basic Snapshotting,Inspection and Comparison,Patching"},
