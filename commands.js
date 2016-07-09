@@ -6,13 +6,13 @@ var canonize = function (k) {
 var locations = ["stash", "workspace", "index", "local_repo", "remote_repo"]
 
 var commands = [
-  {"left": "stash"      , "right": "workspace"  , "direction": "dn"    , "key": "stash save"        , "tags": "Branching and Merging"},
-  {"left": "stash"      , "right": "workspace"  , "direction": "up"    , "key": "stash apply"       , "tags": "Branching and Merging"},
-  {"left": "stash"      , "right": "workspace"  , "direction": "up"    , "key": "stash pop"         , "tags": "Branching and Merging"},
+  {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash clear"       , "tags": "Branching and Merging"},
+  {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash drop"        , "tags": "Branching and Merging"},
   {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash list"        , "tags": "Branching and Merging"},
   {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash show"        , "tags": "Branching and Merging"},
-  {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash drop"        , "tags": "Branching and Merging"},
-  {"left": "stash"      , "right": "stash"      , "direction": "status", "key": "stash clear"       , "tags": "Branching and Merging"},
+  {"left": "stash"      , "right": "workspace"  , "direction": "up"    , "key": "stash apply"       , "tags": "Branching and Merging"},
+  {"left": "stash"      , "right": "workspace"  , "direction": "up"    , "key": "stash pop"         , "tags": "Branching and Merging"},
+  {"left": "stash"      , "right": "workspace"  , "direction": "dn"    , "key": "stash save"        , "tags": "Branching and Merging"},
   {"left": "stash"      , "right": "local_repo" , "direction": "up"    , "key": "stash branch x"    , "tags": "Branching and Merging"},
   {"left": "workspace"  , "right": "index"      , "direction": "status", "key": "status"            , "tags": "Basic Snapshotting"   },
   {"left": "workspace"  , "right": "index"      , "direction": "status", "key": "diff"              , "tags": "Basic Snapshotting, Inspection and Comparison,Patching"},
