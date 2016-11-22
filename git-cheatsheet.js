@@ -269,14 +269,14 @@ $(function () {
       find('h5').html(translations[lang].locations[loc])
   })
 
-  // Build commands
-  var leftOffset = $('#commands').empty().offset().left;
+    // Build commands
+    var leftOffset = $('#commands').empty().offset().left;
 
-var x  = 0;
-var y  = 0;
-var dropShadowW = 2*3 + 2; // Styles.js: .loc has: boxShadow([3, 3], 2, '#ccc')
-var w  = 0;
-var h  = 0;
+    var x  = 0;
+    var y  = 0;
+    var dropShadowW = 2*3 + 2; // Styles.js: .loc has: boxShadow([3, 3], 2, '#ccc')
+    var w  = 0;
+    var h  = 0;
 
     var aColumnNamesToIndex = {};
     var aColumnWidths       = new Array( locations.length );
@@ -303,7 +303,8 @@ var h  = 0;
     $.each( locations, onLocationWidth );
 
     // Second, Add all the elements
-    for (var i = 0; i < commands.length; i++) {
+    for (var i = 0; i < commands.length; i++)
+    {
         var c     = commands[i];
         var cmd   = translations[lang].commands[c.key].cmd;
 
@@ -314,15 +315,15 @@ var h  = 0;
 
         var id    = "";
 
-    if (width < 1) {
-        left = $('#' + c.left).offset().left -  leftOffset;
-        width = aColumnWidths[ iCol ] - dropShadowW;
-    } else {
-        left  += 10; //   indent
-        width -= 20; // 2*indent
-    }
+        if (width < 1) {
+            left = $('#' + c.left).offset().left -  leftOffset;
+            width = aColumnWidths[ iCol ] - dropShadowW;
+        } else {
+            left  += 10; //   indent
+            width -= 20; // 2*indent
+        }
 
-    x = left;
+        x = left;
 
         aCommands[ i ] = // $e
             $("<dt>" + id + esc(cmd) + "<div class='arrow' /></dt>").
@@ -334,7 +335,7 @@ var h  = 0;
               addClass( c.direction );
         $('#commands').append( aCommands[ i ] ); // $e
 
-var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
+        var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
         aCommands[i].css('background', sColor ).
             css('background-color','').
             css('color','');
@@ -342,20 +343,23 @@ var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
         // Have a new column?
         if( (i > 0) && (c.left != commands[i-1].left) )
         {
-var pos = aCommands[i-1].position().top;
-var off = aCommands[i-1].offset().top;
+            var pos = aCommands[i-1].position().top;
+            var off = aCommands[i-1].offset().top;
 
             var br = $("<hr>").
                 css('position', "relative" ).
                 css('top', h + $('#' + c.left).offset().top + 'px' );
-$('#diagram').append( br );
-last = i;
+
+            $('#diagram').append( br );
+            last = i;
 
         }
-h += parseInt( aCommands[i].css('line-height').replace('px','') ); // font-size -> line-height
+
+        h += parseInt( aCommands[i].css('line-height').replace('px','') ); // font-size -> line-height
 
         var docs = translations[lang].commands[c.key].docs
-        if(docs ) {
+        if(docs )
+        {
               var $doc = $('<dd></dd>').text(esc(docs));
               $('#commands').append($doc);
         }
