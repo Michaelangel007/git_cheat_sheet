@@ -348,7 +348,7 @@ var h  = 0;
         $('#commands').append( aCommands[ i ] ); // $e
 
 var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
-console.log( sColor );
+//console.log( sColor );
         aCommands[i].css('background', sColor ).
             css('background-color','').
             css('color','');
@@ -360,7 +360,7 @@ console.log( sColor );
         {
 var pos = aCommands[i-1].position().top;
 var off = aCommands[i-1].offset().top;
-console.log( "pos = " + pos + "   off = " + off );
+//console.log( "pos = " + pos + "   off = " + off );
 //            y = h;
 
 //            y += aCommands[i-1].offset().top;
@@ -368,7 +368,7 @@ console.log( "pos = " + pos + "   off = " + off );
 //console.log( aCommands[i].position().top );
 
 //               css('position', "absolute" ).
-console.log( "NEW Col.y: " + y );
+//console.log( "NEW Col.y: " + y );
             var br = $("<hr>").
                 css('position', "relative" ).
                 css('top', h + $('#' + c.left).offset().top + 'px' );
@@ -379,7 +379,7 @@ last = i;
 h += parseInt(aCommands[i].css('line-height').replace('px','')); // font-size -> line-height
 //console.log( y );
 
-console.log( "[" +i+"/" + commands.length + "] " + (Array(16).join(' ')+c.key).slice(-16) + " X: " + x + " W: " + width + "    L: " + left + "   R:: " + right );
+//console.log( "[" +i+"/" + commands.length + "] " + (Array(16).join(' ')+c.key).slice(-16) + " X: " + x + " W: " + width + "    L: " + left + "   R:: " + right );
 
         var docs = translations[lang].commands[c.key].docs
         if(docs ) {
