@@ -272,17 +272,15 @@ $(function () {
   // Build commands
   var leftOffset = $('#commands').empty().offset().left;
 
-var x  = 0; // leftOffset; //
-var y  = 0; // 85;
+var x  = 0;
+var y  = 0;
 var dropShadowW = 2*3 + 2; // Styles.js: .loc has: boxShadow([3, 3], 2, '#ccc')
 var w  = 0;
 var h  = 0;
 
-// CLEANUP: BEGIN: Get current column widths
     var aColumnNamesToIndex = {};
-    var aColumnWidths       = new Array(locations.length );
-
-    var aCommands           = new Array( commands.length );
+    var aColumnWidths       = new Array( locations.length );
+    var aCommands           = new Array(  commands.length );
 
     // First, save original columns width
     x = 0;
@@ -311,12 +309,11 @@ var h  = 0;
         var width = right - left;
         var iCol  = aColumnNamesToIndex[ c.left ];
 
-        var id    = ""; // i+"_"; // CLEANUP: DEBUG
+        var id    = "";
 
     if (width < 1) {
-        // left -= Math.min(90, left + 10) // CLEANUP
         left = $('#' + c.left).offset().left -  leftOffset;
-        width = aColumnWidths[ iCol ] - dropShadowW; // CLEANUP: 220
+        width = aColumnWidths[ iCol ] - dropShadowW;
     } else {
         left  += 10; //   indent
         width -= 20; // 2*indent
@@ -327,35 +324,24 @@ var h  = 0;
         aCommands[ i ] = // $e
             $("<dt>" + id + esc(cmd) + "<div class='arrow' /></dt>").
               css('margin-left', x + 'px').
+              css('margin-top' , y + 'px').
               css('width', width + 'px').
-              css('margin-top' , y + 'px'). // CLEANUP
-              addClass(c.left).
-              addClass(c.right).
-              addClass(c.direction);
+              addClass( c.left ).
+              addClass( c.right ).
+              addClass( c.direction );
         $('#commands').append( aCommands[ i ] ); // $e
 
 var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
-//console.log( sColor );
         aCommands[i].css('background', sColor ).
             css('background-color','').
             css('color','');
-
-//        y = 0;
 
         // Have a new column?
         if( (i > 0) && (c.left != commands[i-1].left) )
         {
 var pos = aCommands[i-1].position().top;
 var off = aCommands[i-1].offset().top;
-//console.log( "pos = " + pos + "   off = " + off );
-//            y = h;
 
-//            y += aCommands[i-1].offset().top;
-//y = $('#commands');
-//console.log( aCommands[i].position().top );
-
-//               css('position', "absolute" ).
-//console.log( "NEW Col.y: " + y );
             var br = $("<hr>").
                 css('position', "relative" ).
                 css('top', h + $('#' + c.left).offset().top + 'px' );
@@ -363,10 +349,7 @@ $('#diagram').append( br );
 last = i;
 
         }
-h += parseInt(aCommands[i].css('line-height').replace('px','')); // font-size -> line-height
-//console.log( y );
-
-//console.log( "[" +i+"/" + commands.length + "] " + (Array(16).join(' ')+c.key).slice(-16) + " X: " + x + " W: " + width + "    L: " + left + "   R:: " + right );
+h += parseInt( aCommands[i].css('line-height').replace('px','') ); // font-size -> line-height
 
         var docs = translations[lang].commands[c.key].docs
         if(docs ) {
@@ -375,7 +358,6 @@ h += parseInt(aCommands[i].css('line-height').replace('px','')); // font-size ->
         }
     }
 
-//CLEANUP: END
 // Styles.js -- builds the divs for the columns
 // This fills in the divs per column
 //  {
@@ -385,14 +367,8 @@ h += parseInt(aCommands[i].css('line-height').replace('px','')); // font-size ->
 //    key      : "status"   , // name
 //    tags: "Basic Snapshotting" // 
 //  }
-// direction is css
+// direction is css style
 //    status - box, grey background = styles.js -- statusColor
 //    up     - right arrow, color of column
 //    dn     - left arrow, color of column
-
-/*
-  Rx.Observable.interval(1000).subscribe(function (e) {
-    console.log('clickMode ', clickMode)
-  })
-// */
 });
