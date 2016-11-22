@@ -175,23 +175,23 @@ $(function () {
         case KEY_1:
         case KEY_FN1:
         case KEY_S:
-              return 'stash'
+              return locations[0]; // CLEANUP: 'stash'
         case KEY_2:
         case KEY_FN2:
         case KEY_W:
-              return 'workspace'
+              return locations[1]; // CLEANUP: 'workspace'
         case KEY_3:
         case KEY_FN3:
         case KEY_I:
-              return 'index'
+              return locations[2]; // CLEANUP: 'index'
         case KEY_4:
         case KEY_FN4:
         case KEY_O:
-              return 'local_repo'
+              return locations[3]; // CLEANUP: 'local_repo'
         case KEY_5:
         case KEY_FN5:
         case KEY_R:
-              return 'remote_repo'
+              return locations[4]; // CLEANUP: 'remote_repo'
       }
     })
     .filter(function(loc) { return !!loc} )
