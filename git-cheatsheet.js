@@ -361,8 +361,8 @@ $(function () {
         var docs = translations[lang].commands[c.key].docs
         if(docs )
         {
-              var $doc = $('<dd></dd>').text(esc(docs));
-              $('#commands').append($doc);
+            var $doc = $('<dd></dd>').text(esc(docs));
+            $('#commands').append($doc);
         }
     }
 
