@@ -1,3 +1,5 @@
+var showCommandNumbers = true;
+
 var clickMode = false;
 var log = function (x) {
   console.log(x)
@@ -85,8 +87,16 @@ function selectCommand($cmd) {
   $('#commands>dt').removeClass('selected');
   $cmd.addClass('selected');
 
+  // e.g.
+  //    "0. stash clear"
+  //       ^
+  var text = $cmd.html(),
+      find = text.indexOf( ' ' ),
+      head = showCommandNumbers ? text.substr(      0, find+1      ) : "", // include space
+      tail = showCommandNumbers ? text.substr( find+1, text.length ) : text;
+
   var doc = $cmd.next('dd').text() || '',
-    cmd = 'git ' + $cmd.html();
+      cmd = 'git ' + tail;
   showDocs(doc, cmd);
 }
 
@@ -313,8 +323,6 @@ $(function () {
         var width = right - left;
         var iCol  = aColumnNamesToIndex[ c.left ];
 
-        var id    = "";
-
         if (width < 1) {
             left = $('#' + c.left).offset().left -  leftOffset;
             width = aColumnWidths[ iCol ] - dropShadowW;
@@ -326,7 +334,7 @@ $(function () {
         x = left;
 
         aCommands[ i ] = // $e
-            $("<dt>" + id + esc(cmd) + "<div class='arrow' /></dt>").
+            $("<dt>" + (showCommandNumbers ? i+1 + ". " : "") + esc(cmd) + "<div class='arrow' /></dt>").
             css('margin-left', x + 'px').
             css('margin-top' , y + 'px').
             css('width', width + 'px').
