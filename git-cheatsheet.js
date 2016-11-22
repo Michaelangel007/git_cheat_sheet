@@ -327,12 +327,13 @@ $(function () {
 
         aCommands[ i ] = // $e
             $("<dt>" + id + esc(cmd) + "<div class='arrow' /></dt>").
-              css('margin-left', x + 'px').
-              css('margin-top' , y + 'px').
-              css('width', width + 'px').
-              addClass( c.left ).
-              addClass( c.right ).
-              addClass( c.direction );
+            css('margin-left', x + 'px').
+            css('margin-top' , y + 'px').
+            css('width', width + 'px').
+            addClass( c.left ).
+            addClass( c.right ).
+            addClass( c.direction )
+        ;
         $('#commands').append( aCommands[ i ] ); // $e
 
         var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
