@@ -67,8 +67,25 @@ function selectLoc(id) {
 
   window.document.title = '' + id.replace('_', ' ') + ' :: Git Cheatsheet'
 
-  if (!window.location.hash.match(RegExp('loc=' + id))) {
-    window.location.href = '#loc=' + id + ';';
+//BUGFIX: BEGIN
+console.clear();
+console.log( "URL.loc : " + window.location      );
+console.log( "URL.href: " + window.location.href );
+
+  text  = window.location.href;
+  found = text.indexOf( '#' ); // loc=' + id );
+
+  if( found >= 0 )
+  {
+    head  = text.substr( 0, found );
+    tail  = text.substr( found, text.length );
+  //if (!window.location.hash.match(RegExp('loc=' + id)))
+console.log( "head: " + head );
+console.log( "tail: " + tail );
+    loc = '#loc=' + id + ';';
+    if( tail != loc )
+      window.location.href = head + loc ;
+// BUGFIX: END
     //_gaq.push(['_trackEvent', 'git-cheatsheet', 'select-loc', id, null]);
   }
 }
@@ -268,11 +285,110 @@ $(function () {
   // Build commands
   var leftOffset = $('#commands').empty().offset().left;
 
-var y = 0; // 85;
+var x  = 0; // leftOffset; //
+var y  = 0; // 85;
+var dropShadowW = 2*3 + 2; // Styles.js: .loc has: boxShadow([3, 3], 2, '#ccc')
+var w  = 0;
+var h  = 0;
 
-  for (var i = 0; i < commands.length; i++) {
-    var c = commands[i];
+// CLEANUP: BEGIN: Get current column widths
+    var aColumnNamesToIndex = {};
+    var aColumnWidths       = new Array(locations.length );
 
+    var aCommands           = new Array( commands.length );
+
+    // First, save original columns width
+    x = 0;
+    $.each(locations,function(i,loc) {
+        w = $('#' + loc).innerWidth();
+
+        if (w < 220) { // HACK: Hard-coded max status width
+            w = 220;
+            $('#' + loc).css('width', w + 'px');
+        }
+
+        if( i > 0 )
+            x += w;
+
+        aColumnWidths      [ i   ] = w;
+        aColumnNamesToIndex[ loc ] = i;
+    });
+
+    // Second, Add all the elements
+    for (var i = 0; i < commands.length; i++) {
+        var c     = commands[i];
+        var cmd   = translations[lang].commands[c.key].cmd
+
+        var left  = $("#" + c.left  + " div.bar").offset().left - leftOffset;
+        var right = $("#" + c.right + " div.bar").offset().left - leftOffset;
+        var width = right - left;
+        var iCol  = aColumnNamesToIndex[ c.left ];
+
+        var id    = ""; // i+"_"; // CLEANUP: DEBUG
+
+    if (width < 1) {
+        // left -= Math.min(90, left + 10) // CLEANUP
+        left = $('#' + c.left).offset().left -  leftOffset;
+        width = aColumnWidths[ iCol ] - dropShadowW; // CLEANUP: 220
+    } else {
+        left  += 10; //   indent
+        width -= 20; // 2*indent
+    }
+
+    x = left;
+
+        aCommands[ i ] = // $e
+            $("<dt>" + id + esc(cmd) + "<div class='arrow' /></dt>").
+              css('margin-left', x + 'px').
+              css('width', width + 'px').
+              css('margin-top' , y + 'px'). // CLEANUP
+              addClass(c.left).
+              addClass(c.right).
+              addClass(c.direction);
+        $('#commands').append( aCommands[ i ] ); // $e
+
+var sColor ='linear-gradient(right,#'+ colors[c.left]+',#'+ colors[c.right]+')';
+console.log( sColor );
+        aCommands[i].css('background', sColor ).
+            css('background-color','').
+            css('color','');
+
+//        y = 0;
+
+        // Have a new column?
+        if( (i > 0) && (c.left != commands[i-1].left) )
+        {
+var pos = aCommands[i-1].position().top;
+var off = aCommands[i-1].offset().top;
+console.log( "pos = " + pos + "   off = " + off );
+//            y = h;
+
+//            y += aCommands[i-1].offset().top;
+//y = $('#commands');
+//console.log( aCommands[i].position().top );
+
+//               css('position', "absolute" ).
+console.log( "NEW Col.y: " + y );
+            var br = $("<hr>").
+                css('position', "relative" ).
+                css('top', h + $('#' + c.left).offset().top + 'px' );
+$('#diagram').append( br );
+last = i;
+
+        }
+h += parseInt(aCommands[i].css('line-height').replace('px','')); // font-size -> line-height
+//console.log( y );
+
+console.log( "[" +i+"/" + commands.length + "] " + (Array(16).join(' ')+c.key).slice(-16) + " X: " + x + " W: " + width + "    L: " + left + "   R:: " + right );
+
+        var docs = translations[lang].commands[c.key].docs
+        if(docs ) {
+              var $doc = $('<dd></dd>').text(esc(docs));
+              $('#commands').append($doc);
+        }
+    }
+
+//CLEANUP: END
 // Styles.js -- builds the divs for the columns
 // This fills in the divs per column
 //  {
@@ -286,40 +402,6 @@ var y = 0; // 85;
 //    status - box, grey background = styles.js -- statusColor
 //    up     - right arrow, color of column
 //    dn     - left arrow, color of column
-// 
-
-    var cmd   = translations[lang].commands[c.key].cmd
-    var left  = $("#" + c.left  + " div.bar").offset().left - leftOffset;
-    var right = $("#" + c.right + " div.bar").offset().left - leftOffset;
-    var width = right - left;
-    if (width < 1) {
-      left -= Math.min(90, left + 10)
-      width = 220;
-    } else {
-      left += 10;
-      width -= 20;
-    }
-
-console.log( "Entry: " + i + "/" + commands.length + " -- Col: " + c.left + " Entry: " + c.key + "    Left: " + left + "   Width: " + width );
-
-// <dt> </dt>
-//    var $e = $("<div>" + esc(cmd) + "<div class='arrow' /></div>").
-    var $e = $("<dt>" + esc(cmd) + "<div class='arrow' /></dt>").
-      css('margin-left', left + 'px').
-      css('width', width + 'px').
-      addClass(c.left).
-      addClass(c.right).
-      addClass(c.direction);
-    $('#commands').append($e);
-//css('top', y + 'px').
-//y += 4;
-
-    var docs = translations[lang].commands[c.key].docs
-    if (docs) {
-      var $doc = $('<dd></dd>').text(esc(docs))
-      $('#commands').append($doc)
-    }
-  }
 
 /*
   Rx.Observable.interval(1000).subscribe(function (e) {
