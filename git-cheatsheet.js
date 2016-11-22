@@ -68,9 +68,9 @@ function selectLoc(id) {
   window.document.title = '' + id.replace('_', ' ') + ' :: Git Cheatsheet'
 
 //BUGFIX: BEGIN
-console.clear();
-console.log( "URL.loc : " + window.location      );
-console.log( "URL.href: " + window.location.href );
+//console.clear();
+//console.log( "URL.loc : " + window.location      );
+//console.log( "URL.href: " + window.location.href );
 
   text  = window.location.href;
   found = text.indexOf( '#' ); // loc=' + id );
@@ -80,8 +80,8 @@ console.log( "URL.href: " + window.location.href );
     head  = text.substr( 0, found );
     tail  = text.substr( found, text.length );
   //if (!window.location.hash.match(RegExp('loc=' + id)))
-console.log( "head: " + head );
-console.log( "tail: " + tail );
+//console.log( "head: " + head );
+//console.log( "tail: " + tail );
     loc = '#loc=' + id + ';';
     if( tail != loc )
       window.location.href = head + loc ;
