@@ -283,8 +283,8 @@ var h  = 0;
     var aCommands           = new Array(  commands.length );
 
     // First, save original columns width
-    x = 0;
-    $.each(locations,function(i,loc) {
+    var onLocationWidth = function(i,loc)
+    {
         w = $('#' + loc).innerWidth();
 
         if (w < 220) { // HACK: Hard-coded max status width
@@ -297,7 +297,10 @@ var h  = 0;
 
         aColumnWidths      [ i   ] = w;
         aColumnNamesToIndex[ loc ] = i;
-    });
+    };
+
+    x = 0;
+    $.each( locations, onLocationWidth );
 
     // Second, Add all the elements
     for (var i = 0; i < commands.length; i++) {
