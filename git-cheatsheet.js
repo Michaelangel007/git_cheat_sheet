@@ -244,7 +244,6 @@ $(function () {
 
   mouseOverDataDoc$.subscribe(function (el) {
     showDocsForElement($(el));
-    //_gaq.push(['_trackEvent', 'git-cheatsheet', 'mouseover', $(el).text(), null]);
   })
 
 
@@ -260,7 +259,6 @@ $(function () {
   $('.lang').on('click', function () {
     var newLang = $(this).attr('data-lang');
     cookies.create('lang', newLang)
-    //_gaq.push(['_trackEvent', 'git-cheatsheet', 'lang', newLang, null])
     document.location.reload();
   })
 
