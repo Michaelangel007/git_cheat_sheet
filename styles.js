@@ -1,5 +1,3 @@
-$(function () {
-
   var colors = {
     stash:      '#FF0000'.darken(20), // CLEANUP: '#bf3030',
     workspace:  '#FFFF00'.darken(20), // CLEANUP: '#ff4040'.saturate(-15),
@@ -8,6 +6,7 @@ $(function () {
     remote_repo:'#0000FF'.darken(20)  // CLEANUP: '#bf3030'
   }
 
+$(function () {
 
   var upColor     = colors.workspace.darken(10).saturate(-30);
   var dnColor     = colors.workspace.darken(0).saturate(-30);
