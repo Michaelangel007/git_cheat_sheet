@@ -32,6 +32,7 @@ var KEY_PAGE_DN = 40
 var KEY_PAGE_LEFT = 37
 var KEY_PAGE_RGHT = 39
 
+var ELEM_TYPE = "dt"; // "pre" doens't show background
 
 function showDocs(doc, cmd) {
   var $info = $('#info');
@@ -84,7 +85,7 @@ function selectLoc(id) {
 }
 
 function selectCommand($cmd) {
-  $('#commands>dt').removeClass('selected');
+  $('#commands>' + ELEM_TYPE).removeClass('selected');
   $cmd.addClass('selected');
 
   // e.g.
@@ -122,7 +123,7 @@ $(function () {
 
   var clickLoc$ = Rx.Observable.fromEvent(document, 'click', '#diagram .loc')
     .filter(function (ev) {
-      return $(ev.target).closest('dt').length == 0
+      return $(ev.target).closest( ELEM_TYPE ).length == 0
     })
     .map(function (ev) {
       return $(ev.target).hasClass('loc') ?
@@ -130,9 +131,9 @@ $(function () {
         $(ev.target).closest('.loc').attr('id')
     })
 
-  var clickCmd$ = Rx.Observable.fromEvent(document, 'click', '#commands > dt')
+  var clickCmd$ = Rx.Observable.fromEvent(document, 'click', '#commands > ' + ELEM_TYPE )
     .map(function (ev) {
-      return $(ev.target).is('dt') ? ev.target : $(ev.target).closest('dt').get(0)
+      return $(ev.target).is( ELEM_TYPE ) ? ev.target : $(ev.target).closest( ELEM_TYPE ).get(0)
     })
     .filter(function (el) {
       return !!el
@@ -145,7 +146,7 @@ $(function () {
   var mouseOverDataDoc$ = Rx.Observable.fromEvent(document, 'mousemove', '[data-docs]')
     //.debounce(100)
     .filter(function (ev) {
-      return !$(ev.target).is('dt') && $(ev.target).closest('dt').length == 0
+      return !$(ev.target).is( ELEM_TYPE ) && $(ev.target).closest( ELEM_TYPE ).length == 0
     })
     .map(function (ev) {
       return $(ev.target).is('[data-docs]') ? ev.target : $(ev.target).closest('[data-docs]').get(0)
@@ -155,15 +156,15 @@ $(function () {
     })
     .distinctUntilChanged()
 
-  var mouseOverCmd$ = Rx.Observable.fromEvent(document, 'mousemove', '#commands>dt:not(:selected)')
+  var mouseOverCmd$ = Rx.Observable.fromEvent(document, 'mousemove', '#commands>' + ELEM_TYPE + ':not(:selected)')
     .filter(function () {
       return !clickMode
     })
     .map(function (ev) {
-      return $(ev.target).is('dt') ? ev.target : $(ev.target).closest('dt').get(0);
+      return $(ev.target).is( ELEM_TYPE ) ? ev.target : $(ev.target).closest( ELEM_TYPE ).get(0);
     })
     .filter(function (el) {
-      return $(el).is('dt')
+      return $(el).is( ELEM_TYPE )
     })
     .distinctUntilChanged()
 
@@ -227,8 +228,9 @@ $(function () {
   })
 
   var nextCmd$ = keyDownNextCmd$.map(function () {
-    var cmds = $('#commands>dt:visible').toArray();
-    return next(cmds, $('#commands>dt.selected')[0]);
+    var elem = '#commands>' + ELEM_TYPE;
+    var cmds = $(elem + ':visible' ).toArray();
+    return next(cmds, $(elem + '.selected')[0]);
   })
 
   var keyDownPrevCmd$ = keydown$.filter(function (e) {
@@ -236,8 +238,9 @@ $(function () {
   })
 
   var prevCmd$ = keyDownPrevCmd$.map(function () {
-    var cmds = $('#commands>dt:visible').toArray();
-    return prev(cmds, $('#commands>dt.selected')[0]);
+    var elem = '#commands>' + ELEM_TYPE;
+    var cmds = $(elem + ':visible').toArray();
+    return prev(cmds, $(elem + '.selected')[0]);
   })
 
 
@@ -334,7 +337,7 @@ $(function () {
         x = left;
 
         aCommands[ i ] = // $e
-            $("<dt>" + (showCommandNumbers ? i+1 + ". " : "") + esc(cmd) + "<div class='arrow' /></dt>").
+            $( "<" + ELEM_TYPE + ">" + (showCommandNumbers ? i+1 + ". " : "") + esc(cmd) + "<div class='arrow' /></" + ELEM_TYPE + ">").
             css('margin-left', x + 'px').
             css('margin-top' , y + 'px').
             css('width', width + 'px').
