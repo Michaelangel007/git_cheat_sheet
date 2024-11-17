@@ -1,6 +1,6 @@
 # Git Cheat Sheet
 
-* [Interactive Cheat Sheet](http://htmlpreview.github.io/?https://raw.githubusercontent.com/Michaelangel007/git_cheat_sheet/master/index.html)
+* [Interactive Cheat Sheet](https://michaelangel007.github.io/git_cheat_sheet/)
 
 ![All Git Commands](git_cheat_sheet.png)
 
